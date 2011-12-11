@@ -1,1 +1,5 @@
 Pseudo multi-threaded bash script to parallel encode .wav to .mp3 via lame.
+
+The syntax for running the script is to simply call it from the dir that contains all of your .wav files.
+
+*Edit /etc/multilame.conf before you attempt to use the script.
