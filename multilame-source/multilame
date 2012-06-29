@@ -6,9 +6,14 @@
 encode() {
 . /etc/multilame.conf
 for file; do
-fileout=$(echo "$file" | sed s'/.wav//')
-lame "$switches" "$file" "$fileout".mp3; done
+fileout=$(echo "$file" | sed 's/\([[:alnum:]][[:alnum:]]*\)\.\([[:graph:]][[:graph:]]*\)/\1/g')
+lame "$switches" "$file"
+mp3file=$fileout".mp3"
+chmod 644 $mp3file
+#optionally delete
+#rm $file
+; done
 }
 
 export -f encode
-find . -name '*.wav' -print0 | xargs -0 -n 1 -P $cores bash -c 'encode "$@"' --
+find $wavlocation -name '*.wav' -print0 | xargs -0 -n 1 -P $cores bash -c 'encode "$@"' --
